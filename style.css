@@ -11,7 +11,7 @@ body {
 }
 
 main {
-  margin: 10px;
+  margin: 20px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -25,6 +25,46 @@ img {
   padding: 10px;
 }
 
-h2 {
+h3 {
   color: #009846;
+}
+
+.icon {
+  position: absolute;
+  top: 5%;
+  left: 75%;
+  transform: translate(-50%,-50%);
+  width: 80px;
+  height: 60px;
+  transform: rotate(-45deg);
+}
+
+.arrow {
+  position: absolute;
+  top: 25px;
+  width: 90%;
+  height: 10px;
+  background-color: #009846;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+  animation: arrow 700ms linear infinite;
+}
+
+.arrow::after, .arrow::before {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 10px;
+  right: -8px;
+  background-color: #009846;
+}
+
+.arrow::after {
+  top: -12px;
+  transform: rotate(45deg);
+}
+
+.arrow::before {
+  top: 12px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+  transform: rotate(-45deg);
 }

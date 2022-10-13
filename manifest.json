@@ -1,6 +1,6 @@
 {
-  "name": "Abre Wpp",
-  "short_name": "Abre Wpp",
+  "name": "Chama no Whatsapp",
+  "short_name": "Chama no Whatsapp",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#fdfdfd",
