@@ -8,20 +8,30 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <title>Chama no Whatsapp</title>
 </head>
 
 <body>
-    <script type="text/javascript" src="app.js"></script>
     <main>
-        <div class="icon">
-            <div class="arrow"></div>
+        <div id="step">
         </div>
-        <h3>1 -Clique nos <i class="fa fa-ellipsis-v" aria-hidden="true"></i> no canto da página e depois em: Instalar aplicativo.</h3>
-        <h3>2 - Após instalado basta selecionar o texto com o número do Whatsapp e clicar em compartilhar.</h3>
-        <h3>3 - Selecione o aplicativo: Chama no Whatsapp e pronto.</h3>
-        <img src="https://seeklogo.com/images/W/whatsapp-logo-6DD2604E64-seeklogo.com.png" alt="Whatsapp logo" />
+        <h3 style="margin: 10px;">Ou</h3>
+        <form id="lookup">
+            <h3>
+                Adicione o número do Whatsapp no campo abaixo:
+            </h3>
+            <input id="phone" type="tel" name="phone" />
+            <input type="submit" class="btn" value="Abrir" />
+            <div class="alert alert-error" style="display: none;"></div>
+        </form>
     </main>
+    <footer class="footer">
+        &copy 2022 -
+        <a href="https://github.com/vitorlc"> vitorlc</a>
+    </footer>
 </body>
+<script type="text/javascript" src="app.js"></script>
 
 </html>

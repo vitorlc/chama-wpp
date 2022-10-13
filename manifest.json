@@ -2,6 +2,7 @@
   "name": "Chama no Whatsapp",
   "short_name": "Chama no Whatsapp",
   "start_url": "index.html",
+  "id": "chamaWpp",
   "display": "standalone",
   "background_color": "#fdfdfd",
   "theme_color": "#009846",
