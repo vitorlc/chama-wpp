@@ -41,13 +41,13 @@ window.addEventListener('DOMContentLoaded', () => {
 const getInstalledApps = async () => {
   const installedApps = await navigator.getInstalledRelatedApps()
   const stepElement = document.getElementById('step')
-  if (installedApps.some(app => app.id === 'chamaWpp')) {
+  if (installedApps.length > 0) {
     stepElement.innerHTML = `
       <h3>1 - Selecione o número desejado.</h3>
       <h3>2 - Clique em compartilhar </h3>
       <h3>3 - Selecione o aplicativo: Chama no Whatsapp e pronto.</h3>`
   } else {
-    stepElement.innerHTML = `<button class="btn">Instalar App</button>
+    stepElement.innerHTML = `<button id="installBtn" class="btn">Instalar App</button>
      `
   }
 }
@@ -87,19 +87,25 @@ const form = document.getElementById('lookup')
 form.addEventListener('submit', process)
 
 // Button install App
-let deferredPrompt
-const addBtn = document.querySelector('.add-button')
-addBtn.style.display = 'none'
+let prompt;
+const installButton = document.getElementById('installBtn')
 
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault()
-  deferredPrompt = e
-  addBtn.style.display = 'block'
+window.addEventListener('beforeinstallprompt', function(e){
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  prompt = e;
+});
 
-  addBtn.addEventListener('click', async e => {
-    addBtn.style.display = 'none'
-    deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
-    if (outcome === 'accepted') deferredPrompt = null
-  })
+installButton.addEventListener('click', function(){
+   prompt.prompt();
+})
+
+let installed = false;
+installButton.addEventListener('click', async function(){
+  prompt.prompt();
+  let result = await that.prompt.userChoice;
+  if (result&&result.outcome === 'accepted') {
+     installed = true;
+  }
 })
