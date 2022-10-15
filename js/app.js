@@ -38,23 +38,22 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 // Check if webapp is instaled
-const getInstalledApps = async () => {
-  const installedApps = await navigator.getInstalledRelatedApps()
-  const stepElement = document.getElementById('step')
-  if (installedApps.length > 0) {
-    stepElement.innerHTML = `
-      <h3>1 - Selecione o número desejado.</h3>
-      <h3>2 - Clique em compartilhar </h3>
-      <h3>3 - Selecione o aplicativo: Chama no Whatsapp e pronto.</h3>`
-  } else {
-    stepElement.innerHTML = `<button id="installBtn" class="btn">Instalar App</button>
-     `
-  }
-}
+// const getInstalledApps = async () => {
+//   const installedApps = await navigator.getInstalledRelatedApps()
+//   const stepElement = document.getElementById('step')
+//   const installButton = document.getElementById('installBtn')
+//   if (installedApps.length > 0) {
+//     stepElement.style.display = 'block'
+//     installButton.style.display = 'none'
+//   } else {
+//     stepElement.style.display = 'none'
+//     installButton.style.display = 'block'
+//   }
+// }
 
-if ('getInstalledRelatedApps' in navigator) {
-  getInstalledApps()
-}
+// if ('getInstalledRelatedApps' in navigator) {
+//   getInstalledApps()
+// }
 
 // Config Phone Input
 const phoneInputField = document.querySelector('#phone')
@@ -87,25 +86,31 @@ const form = document.getElementById('lookup')
 form.addEventListener('submit', process)
 
 // Button install App
-let prompt;
+let deferredPrompt
 const installButton = document.getElementById('installBtn')
+const stepElement = document.getElementById('step')
 
-window.addEventListener('beforeinstallprompt', function(e){
+window.addEventListener('beforeinstallprompt', function (e) {
   // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault();
+  e.preventDefault()
   // Stash the event so it can be triggered later.
-  prompt = e;
-});
+  deferredPrompt = e
+  installButton.style.display = 'block'
+  stepElement.style.display = 'none'
 
-installButton.addEventListener('click', function(){
-   prompt.prompt();
-})
+  installButton.addEventListener('click', function () {
+    console.log('Aqui')
+    installButton.style.display = 'none'
+    stepElement.style.display = 'block'
+    deferredPrompt.prompt()
 
-let installed = false;
-installButton.addEventListener('click', async function(){
-  prompt.prompt();
-  let result = await that.prompt.userChoice;
-  if (result&&result.outcome === 'accepted') {
-     installed = true;
-  }
+    deferredPrompt.userChoice.then(choiceResult => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt')
+      } else {
+        console.log('User dismissed the A2HS prompt')
+      }
+      deferredPrompt = null
+    })
+  })
 })
