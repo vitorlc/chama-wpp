@@ -82,8 +82,8 @@ h3 {
 
 .btn {
   color: #ffffff;
-  background-color: #428bca;
-  border-color: #357ebd;
+  background-color: #009846;
+  border-color: #009846;
   font-size: 14px;
   outline: none;
   cursor: pointer;
@@ -93,8 +93,8 @@ h3 {
 
 .btn:focus,
 .btn:hover {
-  background-color: #3276b1;
-  border-color: #285e8e;
+  background-color: #007b3a;
+  border-color: #007b3a;
 }
 
 .btn:active {
@@ -106,12 +106,6 @@ h3 {
   margin-top: 10px;
   border: 1px solid transparent;
   border-radius: 4px;
-}
-
-.alert-info {
-  border-color: #bce8f1;
-  color: #31708f;
-  background-color: #d9edf7;
 }
 
 .alert-error {

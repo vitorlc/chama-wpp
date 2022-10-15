@@ -38,24 +38,23 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 // Check if webapp is instaled
-;(async () => {
-  const listOfInstalledApps = await navigator.getInstalledRelatedApps()
+const getInstalledApps = async () => {
+  const installedApps = await navigator.getInstalledRelatedApps()
   const stepElement = document.getElementById('step')
-  if (listOfInstalledApps.some(app => app.id === 'chamaWpp')) {
+  if (installedApps.some(app => app.id === 'chamaWpp')) {
     stepElement.innerHTML = `
       <h3>1 - Selecione o número desejado.</h3>
       <h3>2 - Clique em compartilhar </h3>
       <h3>3 - Selecione o aplicativo: Chama no Whatsapp e pronto.</h3>`
   } else {
-    stepElement.innerHTML = `<div class="icon"><div class="arrow"></div></div><h3>Clique nos 
-    <i class="fa fa-ellipsis-v" aria-hidden="true"></i> no canto da página e depois em: Instalar aplicativo.</h3>
+    stepElement.innerHTML = `<button class="btn">Instalar App</button>
      `
   }
-  // These fields are specified by the Web App Manifest spec.
-  // console.log('platform:', app.platform)
-  // console.log('url:', app.url)
-  // console.log('id:', app.id)
-})()
+}
+
+if ('getInstalledRelatedApps' in navigator) {
+  getInstalledApps()
+}
 
 // Config Phone Input
 const phoneInputField = document.querySelector('#phone')
@@ -86,3 +85,21 @@ function process (event) {
 
 const form = document.getElementById('lookup')
 form.addEventListener('submit', process)
+
+// Button install App
+let deferredPrompt
+const addBtn = document.querySelector('.add-button')
+addBtn.style.display = 'none'
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault()
+  deferredPrompt = e
+  addBtn.style.display = 'block'
+
+  addBtn.addEventListener('click', async e => {
+    addBtn.style.display = 'none'
+    deferredPrompt.prompt()
+    const { outcome } = await deferredPrompt.userChoice
+    if (outcome === 'accepted') deferredPrompt = null
+  })
+})
