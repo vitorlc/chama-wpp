@@ -3,7 +3,7 @@ const assets = [
   '/',
   '/index.html',
   '/style.css',
-  '/app.js',
+  '/js/app.js',
   'images/android-launchericon-48-48.png',
   'images/android-launchericon-72-72.png',
   'images/android-launchericon-96-96.png',
