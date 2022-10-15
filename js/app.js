@@ -87,30 +87,17 @@ form.addEventListener('submit', process)
 
 // Button install App
 let deferredPrompt
-const installButton = document.getElementById('installBtn')
-const stepElement = document.getElementById('step')
-
-window.addEventListener('beforeinstallprompt', function (e) {
-  // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault()
-  // Stash the event so it can be triggered later.
+window.addEventListener('beforeinstallprompt', e => {
   deferredPrompt = e
-  installButton.style.display = 'block'
-  stepElement.style.display = 'none'
+})
 
-  installButton.addEventListener('click', function () {
-    console.log('Aqui')
-    installButton.style.display = 'none'
-    stepElement.style.display = 'block'
+const installApp = document.getElementById('installBtn')
+installApp.addEventListener('click', async () => {
+  if (deferredPrompt !== null) {
     deferredPrompt.prompt()
-
-    deferredPrompt.userChoice.then(choiceResult => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the A2HS prompt')
-      } else {
-        console.log('User dismissed the A2HS prompt')
-      }
+    const { outcome } = await deferredPrompt.userChoice
+    if (outcome === 'accepted') {
       deferredPrompt = null
-    })
-  })
+    }
+  }
 })
