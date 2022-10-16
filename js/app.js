@@ -40,21 +40,8 @@ window.addEventListener('DOMContentLoaded', () => {
 // Check if webapp is instaled
 const stepElement = document.getElementById('step')
 const installButton = document.getElementById('installBtn')
-
-const getInstalledApps = async () => {
-  const installedApps = await navigator.getInstalledRelatedApps()
-  if (installedApps.length > 0) {
-    stepElement.style.display = 'block'
-    installButton.style.display = 'none'
-  } else {
-    stepElement.style.display = 'none'
-    installButton.style.display = 'block'
-  }
-}
-
-if ('getInstalledRelatedApps' in navigator) {
-  getInstalledApps()
-}
+stepElement.style.display = 'none'
+installButton.style.display = 'block'
 
 // Config Phone Input
 const phoneInputField = document.querySelector('#phone')
@@ -97,8 +84,8 @@ installButton.addEventListener('click', async () => {
     deferredPrompt.prompt()
     const { outcome } = await deferredPrompt.userChoice
     if (outcome === 'accepted') {
-      stepElement.style.display = 'none'
-      installButton.style.display = 'block'
+      stepElement.style.display = 'block'
+      installButton.style.display = 'none'
       deferredPrompt = null
     }
   }
