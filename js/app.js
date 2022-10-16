@@ -38,22 +38,23 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 // Check if webapp is instaled
-// const getInstalledApps = async () => {
-//   const installedApps = await navigator.getInstalledRelatedApps()
-//   const stepElement = document.getElementById('step')
-//   const installButton = document.getElementById('installBtn')
-//   if (installedApps.length > 0) {
-//     stepElement.style.display = 'block'
-//     installButton.style.display = 'none'
-//   } else {
-//     stepElement.style.display = 'none'
-//     installButton.style.display = 'block'
-//   }
-// }
+const stepElement = document.getElementById('step')
+const installButton = document.getElementById('installBtn')
 
-// if ('getInstalledRelatedApps' in navigator) {
-//   getInstalledApps()
-// }
+const getInstalledApps = async () => {
+  const installedApps = await navigator.getInstalledRelatedApps()
+  if (installedApps.length > 0) {
+    stepElement.style.display = 'block'
+    installButton.style.display = 'none'
+  } else {
+    stepElement.style.display = 'none'
+    installButton.style.display = 'block'
+  }
+}
+
+if ('getInstalledRelatedApps' in navigator) {
+  getInstalledApps()
+}
 
 // Config Phone Input
 const phoneInputField = document.querySelector('#phone')
@@ -91,12 +92,13 @@ window.addEventListener('beforeinstallprompt', e => {
   deferredPrompt = e
 })
 
-const installApp = document.getElementById('installBtn')
-installApp.addEventListener('click', async () => {
+installButton.addEventListener('click', async () => {
   if (deferredPrompt !== null) {
     deferredPrompt.prompt()
     const { outcome } = await deferredPrompt.userChoice
     if (outcome === 'accepted') {
+      stepElement.style.display = 'none'
+      installButton.style.display = 'block'
       deferredPrompt = null
     }
   }
