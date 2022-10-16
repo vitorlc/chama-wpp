@@ -5,19 +5,23 @@
 }
 
 body {
+  height: 100vh;
+  padding: 20px;
   background: #fdfdfd;
   font-family: 'Nunito', sans-serif;
   font-size: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 main {
-  margin: 10px;
-  height: 100vh;
+  height: 95%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 10px;
 }
 
 img {
@@ -25,6 +29,57 @@ img {
   padding: 10px;
 }
 
-h2 {
+h3 {
   color: #009846;
+}
+
+#phone,
+.btn {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn {
+  color: #ffffff;
+  background-color: #009846;
+  border-color: #009846;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.btn:focus,
+.btn:hover {
+  background-color: #007b3a;
+  border-color: #007b3a;
+}
+
+.btn:active {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.alert {
+  padding: 15px;
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.footer {
+  text-align: center;
+  font-size: small;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
