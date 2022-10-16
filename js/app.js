@@ -43,6 +43,16 @@ const installButton = document.getElementById('installBtn')
 stepElement.style.display = 'none'
 installButton.style.display = 'block'
 
+const isInStandaloneMode =
+  window.matchMedia('(display-mode: standalone)').matches ||
+  window.navigator.standalone ||
+  document.referrer.includes('android-app://')
+
+if (isInStandaloneMode) {
+  stepElement.style.display = 'block'
+  installButton.style.display = 'none'
+}
+
 // Config Phone Input
 const phoneInputField = document.querySelector('#phone')
 const phoneInput = window.intlTelInput(phoneInputField, {
@@ -84,8 +94,6 @@ installButton.addEventListener('click', async () => {
     deferredPrompt.prompt()
     const { outcome } = await deferredPrompt.userChoice
     if (outcome === 'accepted') {
-      stepElement.style.display = 'block'
-      installButton.style.display = 'none'
       deferredPrompt = null
     }
   }
