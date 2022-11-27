@@ -11,12 +11,14 @@ if ('serviceWorker' in navigator) {
 }
 
 // Request Notification Permission
-if (Notification.permission === 'default') {
-  Notification.requestPermission().then(permission => {
-    if (permission === 'denied') {
-      console.log('notification permission denied')
-    }
-  })
+if ('Notification' in window) {
+  if (Notification.permission === 'default') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'denied') {
+        console.log('notification permission denied')
+      }
+    })
+  }
 }
 
 const openWpp = number => {
@@ -39,7 +41,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Check if webapp is instaled
 const stepElement = document.getElementById('step')
+const stepIOSElement = document.getElementById('stepIOS')
 const installButton = document.getElementById('installBtn')
+stepIOSElement.style.display = 'none'
 stepElement.style.display = 'none'
 installButton.style.display = 'block'
 
@@ -98,3 +102,27 @@ installButton.addEventListener('click', async () => {
     }
   }
 })
+
+// Detects if device is on iOS
+const isIos = () => {
+  const userAgent = window.navigator.userAgent.toLowerCase()
+  return /iphone|ipad|ipod/.test(userAgent)
+}
+
+let isSafari =
+  navigator.vendor.match(/apple/i) &&
+  !navigator.userAgent.match(/crios/i) &&
+  !navigator.userAgent.match(/fxios/i) &&
+  !navigator.userAgent.match(/Opera|OPT\//)
+
+if (isIos()) {
+  document.getElementById('isSafari').style.display = 'none'
+  document.getElementById('isNotSafari').style.display = 'Block'
+  if (isSafari) {
+    document.getElementById('isSafari').style.display = 'Block'
+    document.getElementById('isNotSafari').style.display = 'none'
+  }
+  stepElement.style.display = 'none'
+  stepIOSElement.style.display = 'Block'
+  installButton.style.display = 'none'
+}
